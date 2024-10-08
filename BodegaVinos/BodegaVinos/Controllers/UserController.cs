@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Service;
 using Common.DTOs;
-namespace BodegaDeVinosProyect.Controllers
+namespace BodegaDeVinos.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

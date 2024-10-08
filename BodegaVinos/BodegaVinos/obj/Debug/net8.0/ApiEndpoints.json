@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "BodegaDeVinosProyect.Controllers.UserController",
+    "ContainingType": "BodegaDeVinos.Controllers.UserController",
     "Method": "CreateUser",
     "RelativePath": "api/User",
     "HttpMethod": "POST",
@@ -16,7 +16,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BodegaDeVinosProyect.Controllers.UserController",
+    "ContainingType": "BodegaDeVinos.Controllers.UserController",
     "Method": "GetUserById",
     "RelativePath": "api/User/{id}",
     "HttpMethod": "GET",
