@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\BodegaVinos.props" />
-</Project>
