@@ -214,7 +214,7 @@ Stock Actualizado
 
 .NET Core,
 ASP.NET Core,
-Inyección de dependencias (UserService, WineService, CataService),
+Inyección de dependencias (UserService, WineService),
 SqLite,
 JWT,
 Bases de datos
