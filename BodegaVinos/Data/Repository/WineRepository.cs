@@ -7,12 +7,46 @@ using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class WineRepository
+    public class WineRepository : IWineRepository
     {
-        public List<Wine> Wines { get; set; } =  new List<Wine>();
-        public void AddWine(Wine wine)
+        private readonly BodegaContext _context;
+
+        public WineRepository(BodegaContext context)
         {
-            Wines.Add(wine);
+            _context = context;
+        }
+        // Segundo Endpoint 
+        public List<Wine> GetAll()
+        {
+            return _context.Wines.ToList();
+        }
+        // Bonus buscar por Id 
+        public Wine GetById(int id)
+        {
+            return _context.Wines.Find(id);
+        }
+        public void Add(Wine wine)
+        {
+            _context.Wines.Add(wine);
+            _context.SaveChanges();
+        }  
+
+        // Cuarto Endpoint
+        public List<Wine> GetStockWineByVariety(string variety)
+        {
+            return _context.Wines
+                .Where(w => w.Variety == variety && w.Stock > 0)
+                .ToList();
+        }
+        // bonus 
+        public void UpdateStock(int id, int newStock)
+        {
+            var wine = _context.Wines.Find(id);
+            if (wine != null)
+            {
+                wine.Stock = newStock;
+                _context.SaveChanges(); 
+            }
         }
     }
 }

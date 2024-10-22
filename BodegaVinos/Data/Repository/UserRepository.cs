@@ -2,20 +2,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
-        public List<User> Users { get; set; } = new List<User>();
+        private readonly BodegaContext _context;
 
+        public UserRepository(BodegaContext context)
+        {
+            _context = context;
+        }
+        // Tercer Endpoint
         public void AddUser(User user)
         {
-            Users.Add(user);
+            _context.Users.Add(user);
+            _context.SaveChanges();
+        }
+        // Bonus
+        public User GetUserById(int id)
+        {
+            return _context.Users.FirstOrDefault(u => u.Id == id);
+        }
+        // Bonus
+        public List<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
         }
 
-
+        public User? Get(string username)
+        {
+            return _context.Users.FirstOrDefault(u => u.Username == username);
+        }
     }
 }

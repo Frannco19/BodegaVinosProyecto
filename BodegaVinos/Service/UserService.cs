@@ -6,9 +6,9 @@ namespace Service
 {
     public class UserService
     {
-        private readonly UserRepository _repository;
+        private readonly IUserRepository _repository;
 
-        public UserService(UserRepository repository)
+        public UserService(IUserRepository repository)
         {
             _repository = repository;
         }
@@ -27,7 +27,17 @@ namespace Service
 
         public User GetUserById(int id)
         {
-            return _repository.Users.FirstOrDefault(u => u.Id == id);
+            return _repository.GetUserById(id);
+        }
+
+        public User? AutenticateUser(string username, string password)
+        {
+            User? userToReturn = _repository.Get(username);
+            if (userToReturn is not null && userToReturn.Password == password)
+            {
+                return userToReturn;
+            }
+            return null;
         }
     }
 }

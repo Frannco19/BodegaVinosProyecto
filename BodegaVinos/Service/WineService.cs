@@ -1,16 +1,18 @@
 ﻿using Data.Entities;
 using Data.Repository;
 using Common.DTOs;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Service
 {
     public class WineService
     {
-        private readonly WineRepository _repository;
+        private readonly IWineRepository _wineRepository;
 
-        public WineService(WineRepository repository)
+        public WineService(IWineRepository wineRepository)
         {
-            _repository = repository;
+            _wineRepository = wineRepository;
         }
 
         // Registrar un nuevo vino
@@ -27,18 +29,19 @@ namespace Service
                 CreatedAt = wineDto.CreatedAt
             };
 
-            _repository.AddWine(wine);
+            _wineRepository.Add(wine);
         }
 
         // Obtener un vino por ID
         public Wine GetWineById(int id)
         {
-            return _repository.Wines.FirstOrDefault(w => w.Id == id);
+            return _wineRepository.GetById(id);
         }
 
+        // Obtener todos los vinos
         public List<WineDTO> GetAllWines()
         {
-            return _repository.Wines.Select(w => new WineDTO
+            return _wineRepository.GetAll().Select(w => new WineDTO
             {
                 Id = w.Id,
                 Name = w.Name,
@@ -51,21 +54,15 @@ namespace Service
         }
 
 
-        public void AddStock(int wineId, int amount)
+        // Obtener vinos por variedad
+        public List<Wine> GetStockWinesByVariety(string variety)
         {
-            var wine = GetWineById(wineId);
-            if (wine == null) throw new ArgumentException("El vino no existe.");
-
-            wine.AddStock(amount); 
+            return _wineRepository.GetStockWineByVariety(variety);
         }
 
-        // Reducir stock de un vino
-        public void RemoveStock(int wineId, int amount)
+        public void UpdateStock(int id, int newStock)
         {
-            var wine = GetWineById(wineId);
-            if (wine == null) throw new ArgumentException("El vino no existe.");
-
-            wine.RemoveStock(amount); 
+            _wineRepository.UpdateStock(id, newStock);
         }
     }
 }

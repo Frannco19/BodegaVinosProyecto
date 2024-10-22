@@ -40,6 +40,19 @@ namespace BodegaDeVinos.Controllers
             if (wineDto == null) return NotFound("El vino no existe.");
             return Ok(wineDto);
         }
-    }
 
+        [HttpGet("variety/{variety}")]
+        public IActionResult GetByVariety(string variety)
+        {
+            var wines = _wineService.GetStockWinesByVariety(variety);
+            return Ok(wines);
+        }
+
+        [HttpPut("{id}/stock")]
+        public IActionResult UpdateStock(int id, [FromBody] int newStock)
+        {
+            _wineService.UpdateStock(id, newStock);
+            return Ok("Stock Actualizado");
+        }
+    }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,8 @@ namespace Data.Entities
 {
     public class Wine
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         // El nombre del vino, requerido
@@ -22,30 +26,11 @@ namespace Data.Entities
         // Región de origen (ej: Mendoza, La Rioja)
         public string Region { get; set; } = string.Empty;
 
-        // Cantidad disponible en stock, debe ser mayor o igual a 0
-        private int _stock;
-        public int Stock
-        {
-            get => _stock;
-            set
-            {
-                if (value < 0) throw new ArgumentException("El stock no puede ser negativo.");
-                _stock = value;
-            }
-        }
+        public List<Cata> Catas { get; set; }
+
+        public int Stock { get; set; } 
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        public void AddStock(int amount)
-        {
-            if (amount <= 0) throw new ArgumentException("La cantidad a añadir debe ser mayor a 0.");
-            Stock += amount;
-        }
-        public void RemoveStock(int amount)
-        {
-            if (amount <= 0) throw new ArgumentException("La cantidad a reducir debe ser mayor a 0.");
-            if (Stock - amount < 0) throw new InvalidOperationException("No hay suficiente stock disponible.");
-            Stock -= amount;
-        }
     }
 }
