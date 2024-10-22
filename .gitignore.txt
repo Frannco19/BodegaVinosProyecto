@@ -1,0 +1,14 @@
+relaciones entre dos entidades
+1) creamos la entidad Sale con : 
+
+public Datetime datetime
+public list<Product> productos
+public User user 
+
+2) creamos productos [Key] [Datareferences etc etc]
+
+3) Agg dbset product y sale 
+
+4) Hacemos la migración add-migration AddProductsAndSales (Dats)
+
+5) 
