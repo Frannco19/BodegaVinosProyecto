@@ -27,6 +27,26 @@ La API estara disponible en la url que el visual studio le dispongaa, un ejemplo
 
 ## Endpoints
 
+### Authenticate (Autenticacion)
+
+#### 1. Autenticacion de User para token 
+
+**URL:** `/api/Authenticacion/aythenticate`
+
+**Método:** `POST`
+
+**Descripción:** Crea un nuevo usuario y si se encuentra en la BD nos devuelve un token con validacion de 60 mins.
+
+**Cuerpo de la solicitud:**
+
+```json
+{
+  "id": 3,
+  "userame": "test1",
+  "password": "test1"
+}
+```
+
 ### Usuarios
 
 #### 1. Crear un nuevo usuario
@@ -35,7 +55,7 @@ La API estara disponible en la url que el visual studio le dispongaa, un ejemplo
 
 **Método:** `POST`
 
-**Descripción:** Crea un nuevo usuario y se almacena localmente sin base de datos.
+**Descripción:** Crea un nuevo usuario y se almacena en la base de datos.
 
 **Cuerpo de la solicitud:**
 
@@ -71,7 +91,7 @@ La API estara disponible en la url que el visual studio le dispongaa, un ejemplo
 
 **Método:** `POST`
 
-**Descripción:** Registra un nuevo vino y se almacena localmente sin base de datos.
+**Descripción:** Registra un nuevo vino y se almacena en la bases de datos.
 
 **Cuerpo de la solicitud:**
 
@@ -150,11 +170,52 @@ La API estara disponible en la url que el visual studio le dispongaa, un ejemplo
   "createdAt": "2024-09-29T19:06:15.991Z"
 }
 ```
+
+#### 4. Obtener vinos por variety (Variedad)
+
+**URL:** `/api/wine/variety/{variety}`
+
+**Método:** `GET`
+
+**Descripción:** Devuelve los detalles de uno o mas vinos dado su variedad.
+
+**Cuerpo de la respuesta:**
+
+```json
+[
+  {
+    "id": 4,
+    "name": "string",
+    "variety": "Blanco",
+    "year": 0,
+    "region": "string",
+    "catas": null,
+    "stock": 50,
+    "createdAt": "2024-10-21T23:47:04.384"
+  }
+]
+```
+
+#### 5. Actualizar el stock de un vino por ID.
+
+**URL:** `/api/wine/{id}/stock`
+
+**Método:** `PUT`
+
+**Descripción:** Actualiza el stock de un vino ingresando su ID y su nuevo stock.
+
+**Cuerpo de la respuesta:**
+
+```Messsage
+Stock Actualizado
+```
+
 ## Tecnologías utilizadas
 
 .NET Core,
 ASP.NET Core,
-Inyección de dependencias (UserService, WineService)
+Inyección de dependencias (UserService, WineService, CataService),
+SqLite,
+JWT,
+Bases de datos
 
-## Base URL
-Todavia no disponobile con conectividad a base de datos
